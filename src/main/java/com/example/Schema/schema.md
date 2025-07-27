@@ -6,6 +6,8 @@ seeding for application stages.
 ## SQL Schema Definition
 
 ```sql
+create database recruitment_db
+
 -- User Management
 create table user(
    user_id int primary key auto_increment,

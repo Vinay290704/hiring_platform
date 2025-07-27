@@ -46,6 +46,7 @@ public class Queries {
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println(e.getMessage());
         }
         return candidates;
@@ -85,6 +86,7 @@ public class Queries {
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println(e.getMessage());
         }
         return interviewSchedulesList;
@@ -124,6 +126,7 @@ public class Queries {
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println(e.getMessage());
         }
         return jobResponseList;

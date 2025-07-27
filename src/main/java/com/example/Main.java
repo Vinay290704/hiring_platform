@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         // Query-1 List all candidates in the “interview” stage for a given job.
-        int jobId = 101;
+        int jobId = 2;
         List<CandidateResponse> candidateResponseList = Queries.listCandidatesInInterviewStage(jobId);
         for (CandidateResponse candidateResponse : candidateResponseList) {
             System.out.println("application_id : " + candidateResponse.applicationId());
@@ -23,7 +23,7 @@ public class Main {
         }
 
         // Query-2 Retrieve interview schedules for an interviewer
-        int interviewId = 201;
+        int interviewId = 1;
         List<InterviewSchedules> interviewSchedulesList = Queries.getInterviewSchedulesForInterviewer(interviewId);
         for (InterviewSchedules interviewSchedules : interviewSchedulesList) {
             System.out.println("application_id: " + interviewSchedules.applicationId());
@@ -56,7 +56,7 @@ public class Main {
 
         // Frequent Query-5
         // Show status of all applications of a candidate.
-        int candidateId = 101;
+        int candidateId = 1;
         List<ApplicationStatusOfCandidate> applicationStatusOfCandidateList = Queries.findStatusOfApplicationsOfCandidate(candidateId);
         for (ApplicationStatusOfCandidate applicationStatusOfCandidate : applicationStatusOfCandidateList) {
             System.out.println("application_id: " + applicationStatusOfCandidate.applicationId());
