@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 public record Job(
         Integer jobId,
         String title,
-        int companyDeptId,
+        Integer companyDeptId,
         String description,
-        int postedBy,
+        Integer postedBy,
         JobStatus status,
         LocalDateTime createdAt
 ) {

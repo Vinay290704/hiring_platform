@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public record Offer(
         Integer offerId,
-        int applicationId,
+        Integer applicationId,
         BigDecimal salary,
         LocalDateTime issuedAt,
         LocalDateTime validTill,

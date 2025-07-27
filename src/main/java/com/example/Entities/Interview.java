@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 
 public record Interview(
         Integer id,
-        int applicationId,
-        int interviewerId,
+        Integer applicationId,
+        Integer interviewerId,
         LocalDateTime scheduledAt,
         String feedback,
         InterviewStatus status,

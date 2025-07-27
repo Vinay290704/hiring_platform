@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 public record Application(
         Integer applicationId,
-        int candidateId,
-        int jobId,
-        int currentStageId,
+        Integer candidateId,
+        Integer jobId,
+        Integer currentStageId,
         LocalDateTime appliedAt
 ) {
 }
