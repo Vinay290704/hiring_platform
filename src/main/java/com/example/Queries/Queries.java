@@ -4,6 +4,7 @@ import com.example.Connection.UsingConfig.DataBaseConnector2;
 import com.example.Connection.UsingDotenv.DataBaseConnector1;
 import com.example.ResponseEntity.CandidateResponse;
 import com.example.ResponseEntity.InterviewSchedules;
+import com.example.ResponseEntity.JobResponse;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BruteForce {
+public class Queries {
     // Frequent Query -1
     // List all candidates in the “interview” stage for a given job.
     public static List<CandidateResponse> listCandidatesInInterviewStage(int jobId) {
@@ -52,20 +53,23 @@ public class BruteForce {
         return candidates;
     }
 
+    // Frequent Query -2
+    // Retrieve interview schedules for an interviewer.
     public static List<InterviewSchedules> getInterviewSchedulesForInterviewer(int interviewerId) {
         List<InterviewSchedules> interviewSchedulesList = new ArrayList<>();
         String statement = """
-                Select *
+                select
+                i.application_id,
+                u.name,
+                j.title,
+                i.scheduled_at,
+                c.resume_link_path
                 from interviews as i
-                join applications as a
-                on a.application_id = i.application_id
-                join job as j
-                on j.job_id = a.job_id
-                join candidate as c
-                on c.candidate_id = a.candidate_id
-                join user as u
-                on u.user_id = c.user_id
-                where i.interviewer_id  = ? and i.status = 'scheduled'
+                join applications as a on a.application_id = i.application_id
+                join job as j on j.job_id = a.job_id
+                join candidate as c on c.candidate_id = a.candidate_id
+                join user as u on u.user_id = c.user_id
+                where i.interviewer_id = ? and i.status = 'scheduled'
                 """;
         try (Connection connection = DataBaseConnector2.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
@@ -86,5 +90,44 @@ public class BruteForce {
             System.out.println(e.getMessage());
         }
         return interviewSchedulesList;
+    }
+
+    // Frequent Query -3
+    // Find jobs with more than 50 applications.
+    public static List<JobResponse> JobsWithMoreThanFiftyApplication() {
+        return findJobsWithEqualOrGreaterThanApplication(50);
+    }
+
+    private static List<JobResponse> findJobsWithEqualOrGreaterThanApplication(int count) {
+        List<JobResponse> jobResponseList = new ArrayList<>();
+        String statement = """
+                select job_id , title , total_applications , status , posted_by , description
+                from job
+                where total_applications > ?;
+                """;
+        try (Connection connection = DataBaseConnector1.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setInt(1, count);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    resultSet.getString("status");
+                    JobResponse jobResponse = new JobResponse(
+                            resultSet.getInt("job_id"),
+                            resultSet.getString("title"),
+                            resultSet.getInt("total_applications"),
+                            resultSet.getString("status") != null
+                                    ? com.example.Enums.JobStatus.valueOf(resultSet.getString("status"))
+                                    : null,
+                            resultSet.getInt("posted_by"),
+                            resultSet.getString("description")
+
+                    );
+                    jobResponseList.add(jobResponse);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return jobResponseList;
     }
 }

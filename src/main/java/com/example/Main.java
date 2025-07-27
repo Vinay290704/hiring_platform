@@ -1,9 +1,10 @@
 package com.example;
 
 
-import com.example.Queries.BruteForce;
+import com.example.Queries.Queries;
 import com.example.ResponseEntity.CandidateResponse;
 import com.example.ResponseEntity.InterviewSchedules;
+import com.example.ResponseEntity.JobResponse;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Main {
 
         // Query-1 List all candidates in the “interview” stage for a given job.
         int jobId = 101;
-        List<CandidateResponse> candidateResponseList = BruteForce.listCandidatesInInterviewStage(jobId);
+        List<CandidateResponse> candidateResponseList = Queries.listCandidatesInInterviewStage(jobId);
         for (CandidateResponse candidateResponse : candidateResponseList) {
             System.out.println("application_id : " + candidateResponse.applicationId());
             System.out.println("candidate_id : " + candidateResponse.candidateId());
@@ -25,8 +26,8 @@ public class Main {
 
         // Query-2 Retrieve interview schedules for an interviewer
         int interviewId = 201;
-        List<InterviewSchedules> interviewSchedulesList = BruteForce.getInterviewSchedulesForInterviewer(interviewId);
-        for(InterviewSchedules interviewSchedules : interviewSchedulesList){
+        List<InterviewSchedules> interviewSchedulesList = Queries.getInterviewSchedulesForInterviewer(interviewId);
+        for (InterviewSchedules interviewSchedules : interviewSchedulesList) {
             System.out.println("application_id: " + interviewSchedules.applicationId());
             System.out.println("name: " + interviewSchedules.name());
             System.out.println("jobTitle: " + interviewSchedules.jobTitle());
@@ -34,6 +35,14 @@ public class Main {
             System.out.println("resume_link_path: " + interviewSchedules.resumeLinkPath());
         }
 
+        List<JobResponse> jobResponseList = Queries.JobsWithMoreThanFiftyApplication();
+        for (JobResponse jobResponse : jobResponseList) {
+            System.out.println("job_id : " + jobResponse.job_id());
+            System.out.println("title : " + jobResponse.title());
+            System.out.println("total_applications : " + jobResponse.total_applications());
+            System.out.println("posted_by : " + jobResponse.posted_by());
+            System.out.println("description : " + jobResponse.description());
+        }
     }
 }
 
