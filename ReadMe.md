@@ -56,13 +56,13 @@ This section is for users who have received the final `.jar` file and want to ru
 
 ### How to Run
 
-1.  **Place the JAR file:** Put the `.jar` file (e.g., `jdbc-learning-1.0-SNAPSHOT-jar-with-dependencies.jar`) into any folder on your computer.
+1.  **Place the JAR file:** Put the `.jar` file (e.g., `hiring_platform.jar`) into any folder on your computer.
 
 2.  **Open a Terminal:** Open a command prompt or terminal and navigate to the folder where you placed the `.jar` file.
 
 3.  **Execute the Application:** Run the following command:
     ```bash
-    java -jar jdbc-learning-1.0-SNAPSHOT-jar-with-dependencies.jar
+    java -jar hiring_platform.jar
     ```
     *(Note: You must replace the file name with the exact name of the JAR file you have.)*
 
