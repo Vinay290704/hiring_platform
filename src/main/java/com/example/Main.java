@@ -3,6 +3,7 @@ package com.example;
 
 import com.example.Queries.BruteForce;
 import com.example.ResponseEntity.CandidateResponse;
+import com.example.ResponseEntity.InterviewSchedules;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -22,6 +23,16 @@ public class Main {
             System.out.println("experience : " + candidateResponse.experience());
         }
 
+        // Query-2 Retrieve interview schedules for an interviewer
+        int interviewId = 201;
+        List<InterviewSchedules> interviewSchedulesList = BruteForce.getInterviewSchedulesForInterviewer(interviewId);
+        for(InterviewSchedules interviewSchedules : interviewSchedulesList){
+            System.out.println("application_id: " + interviewSchedules.applicationId());
+            System.out.println("name: " + interviewSchedules.name());
+            System.out.println("jobTitle: " + interviewSchedules.jobTitle());
+            System.out.println("scheduledAt: " + interviewSchedules.scheduledAt());
+            System.out.println("resume_link_path: " + interviewSchedules.resumeLinkPath());
+        }
 
     }
 }

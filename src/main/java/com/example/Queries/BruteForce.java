@@ -51,17 +51,34 @@ public class BruteForce {
         return candidates;
     }
 
-    public static List<InterviewSchedules> getInterviewSchedulesForInterviewer() {
+    public static List<InterviewSchedules> getInterviewSchedulesForInterviewer(int interviewerId) {
         List<InterviewSchedules> interviewSchedulesList = new ArrayList<>();
         String statement = """
                 Select *
-                from interviews
+                from interviews as i
+                join applications as a
+                on a.application_id = i.application_id
+                join job as j
+                on j.job_id = a.job_id
+                join candidate as c
+                on c.candidate_id = a.candidate_id
+                join user as u
+                on u.user_id = c.user_id
+                where i.interviewer_id  = ? and i.status = 'scheduled'
                 """;
         try (Connection connection = DataBaseConnector.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setInt(1, interviewerId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-
+                    InterviewSchedules interviewSchedules = new InterviewSchedules(
+                            resultSet.getInt("application_id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("title"),
+                            resultSet.getString("scheduled_at"),
+                            resultSet.getString("resume_link_path")
+                    );
+                    interviewSchedulesList.add(interviewSchedules);
                 }
             }
         } catch (SQLException e) {
