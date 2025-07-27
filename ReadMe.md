@@ -29,73 +29,83 @@ To build and run this project, you will need the following installed on your sys
 - **MySQL Server:** A running instance of MySQL database (version 8.0 or higher).
 - **A Code Editor:** An IDE like Visual Studio Code or IntelliJ IDEA.
 
-## Setup and Installation
+## Setup and Run
 
-Follow these steps to get the project running on your local machine.
+Follow these steps to get the project configured, built, and running on your local machine.
 
-### 1. Database Setup
+### 1. Prerequisites
 
-- **Connect to MySQL:** Open your preferred MySQL client (like MySQL Workbench, DBeaver, or the command line).
-- **Create a Database:** Create a new database for the project. The default name is `recruitment_db` but you can change
-  it in the config file.
-  ```sql
-  CREATE schema recruitment_db;
-  ```
-- **Run the Schema Script:** Execute the provided SQL schema script to create all the necessary tables and insert the
-  initial `application_stage` data.
+Ensure you have the following installed:
 
-### 2. Application Configuration
+- **Java Development Kit (JDK):** Version 17 or higher.
+- **Apache Maven:** For building the project.
+- **MySQL Server:** Version 8.0 or higher.
 
-There are two ways for configuration.
+---
 
-**Option 1: Using Dotenv**
+### 2. Database Setup
 
-1. Create a `.env` file in the root project folder.
-2. Configure your credentials:
+1. **Connect to MySQL:** Open your preferred MySQL client (e.g., MySQL Workbench).
+
+2. **Create Database:** Create a new schema for the project.
+   ```sql
+   CREATE SCHEMA recruitment_db;
+   ```
+3. **Create Tables and Populate Data:** The SQL scripts are now located in the `src/main/resources/` folder. Execute
+   them in the following order:
+    * First, run the contents of `schema.sql` to create all the necessary tables.
+    * Second, run the contents of `Sql_Raw.sql` to insert the sample data.
+
+---
+
+### 3. Application Configuration
+
+You must configure the database credentials for the application to connect successfully. Choose one of the two options
+below.
+
+**Option 1: Using `config.properties` (Recommended)**
+
+1. Navigate to `src/main/resources/`.
+2. Edit the `config.properties` file with your personal MySQL credentials.
    ```properties
    # Database Configuration
    DB_HOST=localhost
    DB_PORT=3306
    DB_NAME=recruitment_db
-   DB_USER=root
-   DB_PASSWORD=your_secret_password
+   DB_USER=your_username
+   DB_PASSWORD=your_password
    ```
-3. Ensure your code uses `DataBaseConnector1` from `com.example/Connection/UsingDotenv/DataBaseConnector1`.
 
-**Option 2: Using config.properties**
+**Option 2: Using a `.env` file**
 
-1. **Create `resources` folder:** Inside `src/main/`, create a new folder named `resources`.
-2. **Create Configuration File:** Inside `src/main/resources/`, create a new file named `config.properties`.
-3. **Add Your DB Credentials:** Open `config.properties` and add your database connection details. **Use your own
-   configuration.**
+1. Create a file named `.env` in the project's root directory.
+2. Add your credentials to the `.env` file.
    ```properties
    # Database Configuration
    DB_HOST=localhost
    DB_PORT=3306
    DB_NAME=recruitment_db
-   DB_USER=root
-   DB_PASSWORD=your_secret_password
+   DB_USER=your_username
+   DB_PASSWORD=your_password
    ```
 
-**Common Step: Populate Data**
+> **Note:** Ensure your code is set to use the correct `DataBaseConnector` class corresponding to your chosen
+configuration method.
 
-- Run the script from `Schema/Sql_Raw` in SQL Workbench to get some sample data to practice with.
+---
 
-### 3. Build the Project
+### 4. Build and Run the Application
 
-- **Open a terminal** in the root directory of the project (where the `pom.xml` file is located).
-- **Run Maven Install:** This command will download all the required dependencies (like the MySQL JDBC driver) and
-  compile your code.
-  ```bash
-  mvn clean install
-  ```
+1. **Build the Project:** Open a terminal in the root directory and run the following Maven command. This will compile
+   the code and create a runnable `.jar` file in the `target` directory.
+   ```bash
+   mvn clean package
+   ```
 
-## How to Run
+2. **Run the Application:** Execute the generated JAR file from the terminal.
+   ```bash
+   java -jar target/recruitment-system-1.0.jar
+   ```
+   *(Note: The JAR file name may vary based on the `artifactId` and `version` in your `pom.xml`)*
 
-After setting up the database and building the project, you can run the main application.
-
-1. **Navigate to the `Main` class:** Open the `Main.java` file in your IDE.
-2. **Run the file:** Execute the `main` method.
-
-The application will now connect to the database using your chosen configuration method and print the query results to
-the console.
+The application will now connect to the database and execute the implemented features.
