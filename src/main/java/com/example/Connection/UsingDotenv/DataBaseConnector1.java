@@ -13,9 +13,6 @@ public class DataBaseConnector1 {
     private static final String PASSWORD = dotenv.get("DB_PASSWORD");
 
     public static Connection getConnection() throws SQLException {
-        System.out.println("URL: " + URL);
-        System.out.println("USER: " + USER);
-        System.out.println("PASSWORD: " + PASSWORD);
         return DriverManager.getConnection(URL , USER , PASSWORD);
     }
 }

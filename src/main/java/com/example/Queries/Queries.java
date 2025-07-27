@@ -2,6 +2,7 @@ package com.example.Queries;
 
 import com.example.Connection.UsingConfig.DataBaseConnector2;
 import com.example.Connection.UsingDotenv.DataBaseConnector1;
+import com.example.ResponseEntity.AcceptanceRateResponse;
 import com.example.ResponseEntity.CandidateResponse;
 import com.example.ResponseEntity.InterviewSchedules;
 import com.example.ResponseEntity.JobResponse;
@@ -129,5 +130,44 @@ public class Queries {
             System.out.println(e.getMessage());
         }
         return jobResponseList;
+    }
+
+    // Query-4 Show offer acceptance rate per department.
+    public static List<AcceptanceRateResponse> findAcceptanceRatePerDepartment() throws SQLException {
+        List<AcceptanceRateResponse> acceptanceRateResponseList = new ArrayList<>();
+        String statement = """
+                select
+                cd.company_dept_id,
+                cd.dept_id,
+                cd.company_id,
+                c.name as companyName,
+                d.name as departmentName,
+                round(cd.total_accepted_offers / cd.total_offers ,2) as acceptance_rate
+                from company_department as cd
+                join company as c
+                on c.company_id = cd.company_id
+                join department as d
+                on d.dept_id = cd.dept_id;
+                """;
+        try (Connection connection = DataBaseConnector1.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    AcceptanceRateResponse acceptanceRateResponse = new AcceptanceRateResponse(
+                            resultSet.getInt("company_dept_id"),
+                            resultSet.getInt("dept_id"),
+                            resultSet.getInt("company_id"),
+                            resultSet.getString("companyName"),
+                            resultSet.getString("departmentName"),
+                            resultSet.getDouble("acceptance_rate")
+                    );
+                    acceptanceRateResponseList.add(acceptanceRateResponse);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return acceptanceRateResponseList;
     }
 }

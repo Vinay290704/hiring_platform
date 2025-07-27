@@ -2,6 +2,7 @@ package com.example;
 
 
 import com.example.Queries.Queries;
+import com.example.ResponseEntity.AcceptanceRateResponse;
 import com.example.ResponseEntity.CandidateResponse;
 import com.example.ResponseEntity.InterviewSchedules;
 import com.example.ResponseEntity.JobResponse;
@@ -43,6 +44,17 @@ public class Main {
             System.out.println("posted_by : " + jobResponse.posted_by());
             System.out.println("description : " + jobResponse.description());
         }
+
+        List<AcceptanceRateResponse> acceptanceRateResponseList = Queries.findAcceptanceRatePerDepartment();
+        for (AcceptanceRateResponse acceptanceRateResponse : acceptanceRateResponseList) {
+            System.out.println("company_dept_id: " + acceptanceRateResponse.company_dept_id());
+            System.out.println("dept_id: " + acceptanceRateResponse.dept_id());
+            System.out.println("company_id: " + acceptanceRateResponse.company_id());
+            System.out.println("companyName: " + acceptanceRateResponse.companyName());
+            System.out.println("departmentName: " + acceptanceRateResponse.departmentName());
+        }
+
+
     }
 }
 
