@@ -62,7 +62,7 @@ insert into candidate (user_id, resume_link_path, experience, education) values
 insert into candidate (user_id, experience)
 select user_id, floor(rand() * 15) from user where user_id > 8;
 
-insert into recruitor (user_id, company_id) values (3, 1), (8, 3);
+insert into recruiter (user_id, company_id) values (3, 1), (8, 3);
 insert into interviewer (user_id, company_dept_id) values (5, 1), (7, 6);
 
 insert into job (title, company_dept_id, description, posted_by, status) values

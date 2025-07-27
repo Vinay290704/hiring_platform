@@ -13,14 +13,19 @@ JDBC API.
 
 ## Note
 
-- The Entities folder is to give the basic idea of the Tables in Database , the ResponseEntity table is the format in
+- The `Entities` folder is to give the basic idea of the Tables in Database , the `ResponseEntity` table is the format in
   which we will recieve data from running queries.
-- The Enums folder contains the enums used in Entities and ResponseEntity Folder
-- There are two types of Connection : one through env and another through config.properties
-- The Schema folder contains the requirement , schema and raw data script that will help in database setup in your sql
+- The `Enums` folder contains the enums used in Entities and ResponseEntity Folder
+- The `Schema` folder contains the requirement , schema and raw data script that will help in database setup in your sql
   workbench
 
-## Prerequisites
+---
+
+## Setup for Developers
+
+This section is for developers who want to build the project from the source code.
+
+### Prerequisites
 
 To build and run this project, you will need the following installed on your system:
 
@@ -29,83 +34,40 @@ To build and run this project, you will need the following installed on your sys
 - **MySQL Server:** A running instance of MySQL database (version 8.0 or higher).
 - **A Code Editor:** An IDE like Visual Studio Code or IntelliJ IDEA.
 
-## Setup and Run
+### Build the Project
 
-Follow these steps to get the project configured, built, and running on your local machine.
-
-### 1. Prerequisites
-
-Ensure you have the following installed:
-
-- **Java Development Kit (JDK):** Version 17 or higher.
-- **Apache Maven:** For building the project.
-- **MySQL Server:** Version 8.0 or higher.
+1.  **Open a terminal** in the root directory of the project (where the `pom.xml` file is located).
+2.  **Run Maven Package:** This command will download all required dependencies and create a runnable `.jar` file with all dependencies included.
+    ```bash
+    mvn clean package
+    ```
+    This will generate a file like `jdbc-learning-1.0-SNAPSHOT-jar-with-dependencies.jar` in the `target` directory.
 
 ---
 
-### 2. Database Setup
+## Instructions for Running the `.jar` File
 
-1. **Connect to MySQL:** Open your preferred MySQL client (e.g., MySQL Workbench).
+This section is for users who have received the final `.jar` file and want to run the application directly.
 
-2. **Create Database:** Create a new schema for the project.
-   ```sql
-   CREATE SCHEMA recruitment_db;
-   ```
-3. **Create Tables and Populate Data:** The SQL scripts are now located in the `src/main/resources/` folder. Execute
-   them in the following order:
-    * First, run the contents of `schema.sql` to create all the necessary tables.
-    * Second, run the contents of `Sql_Raw.sql` to insert the sample data.
+### Prerequisites
 
----
+- **Java Runtime Environment (JRE):** Version 17 or higher must be installed on your system. You can verify this by running `java -version` in your terminal.
+- **MySQL Server:** You must have a running instance of MySQL Server. The application will handle the rest.
 
-### 3. Application Configuration
+### How to Run
 
-You must configure the database credentials for the application to connect successfully. Choose one of the two options
-below.
+1.  **Place the JAR file:** Put the `.jar` file (e.g., `jdbc-learning-1.0-SNAPSHOT-jar-with-dependencies.jar`) into any folder on your computer.
 
-**Option 1: Using `config.properties` (Recommended)**
+2.  **Open a Terminal:** Open a command prompt or terminal and navigate to the folder where you placed the `.jar` file.
 
-1. Navigate to `src/main/resources/`.
-2. Edit the `config.properties` file with your personal MySQL credentials.
-   ```properties
-   # Database Configuration
-   DB_HOST=localhost
-   DB_PORT=3306
-   DB_NAME=recruitment_db
-   DB_USER=your_username
-   DB_PASSWORD=your_password
-   ```
+3.  **Execute the Application:** Run the following command:
+    ```bash
+    java -jar jdbc-learning-1.0-SNAPSHOT-jar-with-dependencies.jar
+    ```
+    *(Note: You must replace the file name with the exact name of the JAR file you have.)*
 
-**Option 2: Using a `.env` file**
+4.  **Automatic Database Setup:**
+    - The application will start and prompt you for your MySQL `username` and `password`.
+    - After you provide the credentials, the application will automatically connect to your MySQL server, create the `recruitment_db` database, create all the necessary tables, and fill them with sample data.
 
-1. Create a file named `.env` in the project's root directory.
-2. Add your credentials to the `.env` file.
-   ```properties
-   # Database Configuration
-   DB_HOST=localhost
-   DB_PORT=3306
-   DB_NAME=recruitment_db
-   DB_USER=your_username
-   DB_PASSWORD=your_password
-   ```
-
-> **Note:** Ensure your code is set to use the correct `DataBaseConnector` class corresponding to your chosen
-configuration method.
-
----
-
-### 4. Build and Run the Application
-
-1. **Build the Project:** Open a terminal in the root directory and run the following Maven command. This will compile
-   the code and create a runnable `.jar` file in the `target` directory.
-   ```bash
-   mvn clean package
-   ```
-
-2. **Run the Application:** Execute the generated JAR file from the terminal.
-   ```bash
-   java -jar target/recruitment-system-1.0.jar
-   ```
-   *(Note: The JAR file name may vary based on the `artifactId` and `version` in your `pom.xml`)*
-
-The application will now connect to the database and execute the implemented features.
+5.  **Use the Application:** Once the setup is complete, the main interactive menu will appear, and you can begin using the platform.

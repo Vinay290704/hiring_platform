@@ -32,4 +32,7 @@ public class DataBaseConnector2 {
                 properties.getProperty("DB_USER"),
                 properties.getProperty("DB_PASSWORD"));
     }
+    public static Properties getProperties() {
+        return properties;
+    }
 }

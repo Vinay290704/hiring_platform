@@ -1,7 +1,9 @@
 package com.example;
 
+import com.example.Connection.ConnectionManager;
 import com.example.Queries.Queries;
 import com.example.ResponseEntity.*;
+import com.example.setup.DataBaseSetup;
 
 import java.sql.SQLException;
 import java.util.InputMismatchException;
@@ -11,6 +13,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
+            DataBaseSetup.setupDatabase(scanner);
             while (true) {
                 printMenu();
                 System.out.print("Enter your choice (0-5): ");
@@ -22,17 +25,17 @@ public class Main {
                         System.out.println("Exiting application. Goodbye!");
                         break;
                     }
-
                     handleUserChoice(choice, scanner);
-
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid input. Please enter a number between 0 and 5.");
-                    scanner.nextLine();
+                    scanner.nextLine(); // Clear the invalid input from the buffer
                 } catch (SQLException e) {
                     System.err.println("A database error occurred: " + e.getMessage());
                     e.printStackTrace();
                 }
             }
+        } finally {
+            ConnectionManager.closeConnection();
         }
     }
 
