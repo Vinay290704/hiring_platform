@@ -39,3 +39,5 @@ buildNumber.properties
 
 # .env file with secrets
 .env
+src/main/resources/config.properties
+.idea
