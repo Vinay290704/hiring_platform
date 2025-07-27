@@ -58,7 +58,7 @@ There are two ways for configuration.
     ```
 
 **Common Step: Populate Data**
-- Run the script from `Schema/Raw_data` in SQL Workbench to get some sample data to practice with.
+- Run the script from `Schema/Sql_Raw` in SQL Workbench to get some sample data to practice with.
 
 ### 3. Build the Project
 
