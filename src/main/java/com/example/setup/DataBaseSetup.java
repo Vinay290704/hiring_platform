@@ -24,19 +24,22 @@ public class DataBaseSetup {
             String host = "localhost";
             String port = "3306";
             String dbName = "recruitment_db";
-            String serverUrl = "jdbc:mysql://" + host + ":" + port + "?allowMultiQueries=true&useSSL=false";
+
+            String serverUrl = "jdbc:mysql://" + host + ":" + port + "?allowPublicKeyRetrieval=true&useSSL=false&allowMultiQueries=true";
             try (Connection conn = DriverManager.getConnection(serverUrl, user, password);
                  Statement stmt = conn.createStatement()) {
                 System.out.println("Checking for database '" + dbName + "'...");
                 stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS " + dbName);
                 System.out.println("Database is ready.");
             }
-            String dbUrl = "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?useSSL=false";
+
+            String dbUrl = "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?allowPublicKeyRetrieval=true&useSSL=false";
             try (Connection conn = DriverManager.getConnection(dbUrl, user, password)) {
                 System.out.println("Connected to '" + dbName + "'. Executing SQL scripts...");
                 executeSqlScript(conn, "schema.sql");
                 executeSqlScript(conn, "Sql_Raw.sql");
             }
+
             ConnectionManager.initialize(dbUrl, user, password);
 
             System.out.println("--- Database setup completed successfully! ---");
