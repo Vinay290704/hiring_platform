@@ -2,10 +2,7 @@ package com.example;
 
 
 import com.example.Queries.Queries;
-import com.example.ResponseEntity.AcceptanceRateResponse;
-import com.example.ResponseEntity.CandidateResponse;
-import com.example.ResponseEntity.InterviewSchedules;
-import com.example.ResponseEntity.JobResponse;
+import com.example.ResponseEntity.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -35,7 +32,8 @@ public class Main {
             System.out.println("scheduledAt: " + interviewSchedules.scheduledAt());
             System.out.println("resume_link_path: " + interviewSchedules.resumeLinkPath());
         }
-
+        // Frequent Query- 3
+        // Find jobs with more than 50 applications.
         List<JobResponse> jobResponseList = Queries.JobsWithMoreThanFiftyApplication();
         for (JobResponse jobResponse : jobResponseList) {
             System.out.println("job_id : " + jobResponse.job_id());
@@ -45,6 +43,8 @@ public class Main {
             System.out.println("description : " + jobResponse.description());
         }
 
+        // Frequent Query- 4
+        // Show offer acceptance rate per department.
         List<AcceptanceRateResponse> acceptanceRateResponseList = Queries.findAcceptanceRatePerDepartment();
         for (AcceptanceRateResponse acceptanceRateResponse : acceptanceRateResponseList) {
             System.out.println("company_dept_id: " + acceptanceRateResponse.company_dept_id());
@@ -54,7 +54,17 @@ public class Main {
             System.out.println("departmentName: " + acceptanceRateResponse.departmentName());
         }
 
-
+        // Frequent Query-5
+        // Show status of all applications of a candidate.
+        int candidateId = 101;
+        List<ApplicationStatusOfCandidate> applicationStatusOfCandidateList = Queries.findStatusOfApplicationsOfCandidate(candidateId);
+        for (ApplicationStatusOfCandidate applicationStatusOfCandidate : applicationStatusOfCandidateList) {
+            System.out.println("application_id: " + applicationStatusOfCandidate.applicationId());
+            System.out.println("jobId: " + applicationStatusOfCandidate.jobId());
+            System.out.println("jobTitle: " + applicationStatusOfCandidate.jobTitle());
+            System.out.println("status: " + applicationStatusOfCandidate.status());
+            System.out.println("appliedAt: " + applicationStatusOfCandidate.appliedAt());
+        }
     }
 }
 

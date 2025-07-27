@@ -2,10 +2,7 @@ package com.example.Queries;
 
 import com.example.Connection.UsingConfig.DataBaseConnector2;
 import com.example.Connection.UsingDotenv.DataBaseConnector1;
-import com.example.ResponseEntity.AcceptanceRateResponse;
-import com.example.ResponseEntity.CandidateResponse;
-import com.example.ResponseEntity.InterviewSchedules;
-import com.example.ResponseEntity.JobResponse;
+import com.example.ResponseEntity.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -169,5 +166,46 @@ public class Queries {
             System.out.println(e.getMessage());
         }
         return acceptanceRateResponseList;
+    }
+
+    // Query-5
+    // Show status of all applications of a candidate.
+    public static List<ApplicationStatusOfCandidate> findStatusOfApplicationsOfCandidate(int candidateId) {
+        List<ApplicationStatusOfCandidate> applicationStatusOfCandidateList = new ArrayList<>();
+        String statement = """
+                select
+                a.application_id,
+                j.job_id,
+                a1.title as status,
+                j.title,
+                a.applied_at
+                from applications as a
+                join application_stage as a1
+                on a1.stage_id = a.current_stage_id
+                join job as j
+                on j.job_id = a.job_id
+                where a.candidate_id = ?
+                """;
+
+        try (Connection connection = DataBaseConnector1.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setInt(1, candidateId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    ApplicationStatusOfCandidate applicationStatusOfCandidate = new ApplicationStatusOfCandidate(
+                            resultSet.getInt("application_id"),
+                            resultSet.getInt("job_id"),
+                            resultSet.getString("status"),
+                            resultSet.getString("title"),
+                            resultSet.getString("applied_at")
+                    );
+                    applicationStatusOfCandidateList.add(applicationStatusOfCandidate);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return applicationStatusOfCandidateList;
     }
 }
