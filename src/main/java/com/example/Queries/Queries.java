@@ -142,7 +142,7 @@ public class Queries {
                 cd.company_id,
                 c.name as companyName,
                 d.name as departmentName,
-                round(cd.total_accepted_offers / cd.total_offers ,2) as acceptance_rate
+                round(cd.total_accepted_offers * 100 / cd.total_offers ,2) as acceptance_rate
                 from company_department as cd
                 join company as c
                 on c.company_id = cd.company_id
