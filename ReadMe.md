@@ -20,6 +20,25 @@ This section is for users who have received the final `.jar` file and want to ru
 - **Java Runtime Environment (JRE):** Version 17 or higher must be installed on your system. You can verify this by running `java -version` in your terminal.
 - **MySQL Server:** You must have a running instance of MySQL Server. The application will handle the rest.
 
+- ### How to Run
+
+1.  **Place the JAR file:** Put the `.jar` file (e.g., `hiring_platform.jar`) into any folder on your computer.
+
+2.  **Open a Terminal:** Open a command prompt or terminal and navigate to the folder where you placed the `.jar` file.
+
+3.  **Execute the Application:** Run the following command:
+    ```bash
+    java -jar hiring_platform.jar
+    ```
+    *(Note: You must replace the file name with the exact name of the JAR file you have.)*
+
+4.  **Automatic Database Setup:**
+    - The application will start and prompt you for your MySQL `username` and `password`.
+    - After you provide the credentials, the application will automatically connect to your MySQL server, create the `recruitment_db` database, create all the necessary tables, and fill them with sample data.
+
+5.  **Use the Application:** Once the setup is complete, the main interactive menu will appear, and you can begin using the platform.
+
+---
 
 ## Note
 
@@ -52,22 +71,3 @@ To build and run this project, you will need the following installed on your sys
     mvn clean package
     ```
     This will generate a file like `jdbc-learning-1.0-SNAPSHOT-jar-with-dependencies.jar` in the `target` directory.
-
----
-### How to Run
-
-1.  **Place the JAR file:** Put the `.jar` file (e.g., `hiring_platform.jar`) into any folder on your computer.
-
-2.  **Open a Terminal:** Open a command prompt or terminal and navigate to the folder where you placed the `.jar` file.
-
-3.  **Execute the Application:** Run the following command:
-    ```bash
-    java -jar hiring_platform.jar
-    ```
-    *(Note: You must replace the file name with the exact name of the JAR file you have.)*
-
-4.  **Automatic Database Setup:**
-    - The application will start and prompt you for your MySQL `username` and `password`.
-    - After you provide the credentials, the application will automatically connect to your MySQL server, create the `recruitment_db` database, create all the necessary tables, and fill them with sample data.
-
-5.  **Use the Application:** Once the setup is complete, the main interactive menu will appear, and you can begin using the platform.
