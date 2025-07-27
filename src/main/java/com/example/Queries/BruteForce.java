@@ -1,6 +1,7 @@
 package com.example.Queries;
 
-import com.example.Connection.DataBaseConnector;
+import com.example.Connection.UsingConfig.DataBaseConnector2;
+import com.example.Connection.UsingDotenv.DataBaseConnector1;
 import com.example.ResponseEntity.CandidateResponse;
 import com.example.ResponseEntity.InterviewSchedules;
 
@@ -27,7 +28,7 @@ public class BruteForce {
                         join user as u1
                         on u1.user_id = c.user_id
                         """;
-        try (Connection connection = DataBaseConnector.getConnection()) {
+        try (Connection connection = DataBaseConnector1.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setInt(1, jobId); // setting jobId in place of question mark
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -66,7 +67,7 @@ public class BruteForce {
                 on u.user_id = c.user_id
                 where i.interviewer_id  = ? and i.status = 'scheduled'
                 """;
-        try (Connection connection = DataBaseConnector.getConnection()) {
+        try (Connection connection = DataBaseConnector2.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setInt(1, interviewerId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
