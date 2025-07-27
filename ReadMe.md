@@ -11,6 +11,16 @@ lifecycle. It handles everything from posting a new job to tracking an applicant
 interviewing, and offering a position. The project focuses on clean database design and direct data access using Java's
 JDBC API.
 
+## Instructions for Running the `.jar` File
+
+This section is for users who have received the final `.jar` file and want to run the application directly.
+
+### Prerequisites
+
+- **Java Runtime Environment (JRE):** Version 17 or higher must be installed on your system. You can verify this by running `java -version` in your terminal.
+- **MySQL Server:** You must have a running instance of MySQL Server. The application will handle the rest.
+
+
 ## Note
 
 - The `Entities` folder is to give the basic idea of the Tables in Database , the `ResponseEntity` table is the format in
@@ -44,16 +54,6 @@ To build and run this project, you will need the following installed on your sys
     This will generate a file like `jdbc-learning-1.0-SNAPSHOT-jar-with-dependencies.jar` in the `target` directory.
 
 ---
-
-## Instructions for Running the `.jar` File
-
-This section is for users who have received the final `.jar` file and want to run the application directly.
-
-### Prerequisites
-
-- **Java Runtime Environment (JRE):** Version 17 or higher must be installed on your system. You can verify this by running `java -version` in your terminal.
-- **MySQL Server:** You must have a running instance of MySQL Server. The application will handle the rest.
-
 ### How to Run
 
 1.  **Place the JAR file:** Put the `.jar` file (e.g., `hiring_platform.jar`) into any folder on your computer.
